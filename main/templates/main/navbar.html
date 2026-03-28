@@ -1,0 +1,62 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-left">
+            <div class="logo-box"><span>AB</span></div>
+            <div class="brand-name">Kelompok Aurel Basket</div>
+        </div>
+
+        <div class="navbar-right">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+
+            {% if user.is_authenticated %}
+                <div class="divider"></div>
+
+                <div class="user-card">
+                    <div class="user-avatar">
+                        {{ user.first_name|default:user.username|slice:":1"|upper }}
+                    </div>
+                    <div class="user-info">
+                        <div class="user-top">
+                            <span class="user-name">
+                                {% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}
+                            </span>
+                            {% if role == "member" %}
+                                <span class="role-badge">MEMBER</span>
+                            {% endif %}
+                        </div>
+                        <div class="user-email">{{ user.email }}</div>
+                    </div>
+                </div>
+
+                {% if role == "member" %}
+                    <a href="{% url 'dashboard' %}" class="edit-btn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                        Edit Website
+                    </a>
+                {% endif %}
+
+                <a href="/accounts/logout/" class="logout-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </a>
+
+            {% else %}
+                <a href="/accounts/google/login/" class="login-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                        <polyline points="10 17 15 12 10 7"/>
+                        <line x1="15" y1="12" x2="3" y2="12"/>
+                    </svg>
+                    Login
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
