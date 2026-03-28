@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .utils import is_authorized_member
+from .utils import is_authorized_member, get_user_email
 
 def home_view(request):
     return render(request, "main/home.html")
 
 def dashboard_view(request):
+
     if not request.user.is_authenticated:
         return redirect("home")
 
