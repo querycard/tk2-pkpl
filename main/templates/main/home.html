@@ -1,0 +1,62 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Home — Kelompok Aurel Basket{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="hero-section">
+    <h1>Kelompok Aurel Basket <span class="hero-accent">— PKPL TK 2</span></h1>
+    <p>Website Biodata Kelompok dengan Google OAuth dan Role-Based Theme Customization</p>
+</div>
+
+<div class="members-section">
+    <h2 class="section-title">Anggota Kelompok</h2>
+    <div class="section-line"></div>
+
+    <div class="members-grid">
+        {% for member in members %}
+            {% with idx=forloop.counter0 %}
+
+                {% if user.is_authenticated and user.email == member.email %}
+                    <div class="member-card card-active">
+                {% else %}
+                    <div class="member-card">
+                {% endif %}
+
+                    <div class="avatar-wrap">
+                        {% if idx == 0 %}
+                            <div class="member-avatar av-purple">
+                        {% elif idx == 1 %}
+                            <div class="member-avatar av-pink">
+                        {% elif idx == 2 %}
+                            <div class="member-avatar av-orange">
+                        {% elif idx == 3 %}
+                            <div class="member-avatar av-yellow">
+                        {% else %}
+                            <div class="member-avatar av-red">
+                        {% endif %}
+                            {{ member.full_name|slice:":1" }}{% for word in member.full_name.split %}{% if forloop.counter == 2 %}{{ word|slice:":1" }}{% endif %}{% endfor %}
+                        </div>
+
+                        {% if user.is_authenticated and user.email == member.email %}
+                            <div class="online-dot"></div>
+                        {% endif %}
+                    </div>
+
+                    <div class="member-name">{{ member.full_name }}</div>
+                    <div class="member-npm">{{ member.npm }}</div>
+                    <span class="member-badge">PKPL - C</span>
+
+                </div>
+
+            {% endwith %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
