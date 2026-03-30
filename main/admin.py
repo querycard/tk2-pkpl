@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import AuthorizedMember
 
-# Register your models here.
+# Mendaftarkan tabel AuthorizedMember ke panel Admin
+admin.site.register(AuthorizedMember)

@@ -162,8 +162,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_CLIENT_SECRET'),
+            'key': ''
+        },
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
         'OAUTH_PKCE_ENABLED': True,
     }
 }
+
+# Melewati halaman konfirmasi putih saat login
+SOCIALACCOUNT_LOGIN_ON_GET = True
+# Melewati halaman konfirmasi putih saat logout
+ACCOUNT_LOGOUT_ON_GET = True

@@ -1,3 +1,5 @@
+{% load socialaccount %}
+
 <nav class="navbar">
     <div class="navbar-container">
         <div class="navbar-left">
@@ -38,7 +40,7 @@
                     </a>
                 {% endif %}
 
-                <a href="/accounts/logout/" class="logout-btn">
+                <a href="{% url 'account_logout' %}" class="logout-btn" onclick="return confirm('Apakah Anda yakin ingin keluar?');">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                         <polyline points="16 17 21 12 16 7"/>
@@ -48,7 +50,7 @@
                 </a>
 
             {% else %}
-                <a href="/accounts/google/login/" class="login-btn">
+                <a href="{% provider_login_url 'google' %}" class="login-btn">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
                         <polyline points="10 17 15 12 10 7"/>
