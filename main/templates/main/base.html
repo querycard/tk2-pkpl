@@ -11,25 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Inter, Arial, sans-serif;
-        }
-
-        body {
-            background: #fff;
-            color: #111;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1;
-        }
-    </style>
+    :root {
+        --theme-bg: {{ theme.primary_color }};
+        --theme-font: {{ theme.text_color }};
+        --theme-font-family: '{{ theme.font_family }}', Arial, sans-serif;
+    }
+    body { background: var(--theme-bg); color: var(--theme-font); font-family: var(--theme-font-family); }
+</style>
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     {% block extra_css %}{% endblock %}

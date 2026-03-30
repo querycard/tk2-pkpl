@@ -1,8 +1,110 @@
 {% extends "main/base.html" %}
 
-{% block title %}Dashboard - Kelompok Aurel Basket{% endblock %}
+{% block title %}Edit Website - Kelompok Aurel Basket{% endblock %}
 
 {% block content %}
-    <h1>DASHBOARD</h1>
-    <p>Kalau ini muncul, berarti lolos proteksi.</p>
+<div style="max-width:600px; margin:48px auto; padding:0 24px;">
+    <h1 style="font-size:24px; font-weight:700; margin-bottom:8px;">Edit Website</h1>
+    <p style="color:#6b7280; margin-bottom:32px;">Kelola tampilan website kamu di sini. Perubahan hanya berlaku untuk akun kamu.</p>
+
+    <div style="background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:28px;">
+        <h2 style="font-size:16px; font-weight:600; margin-bottom:4px;">🎨 Personalisasi Tema</h2>
+        <p style="font-size:13px; color:#6b7280; margin-bottom:24px;">Perubahan hanya terlihat oleh kamu saat login.</p>
+
+        <!-- Warna Background -->
+        <div style="margin-bottom:20px;">
+            <label style="font-size:13px; font-weight:500; display:block; margin-bottom:10px;">Warna Background</label>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;" id="bg-picker">
+                {% for color, label in bg_colors %}
+                <div class="color-btn {% if theme.primary_color == color %}active{% endif %}"
+                     data-color="{{ color }}" style="background:{{ color }}{% if color == '#ffffff' %}; border:1px solid #e5e7eb{% endif %};"
+                     title="{{ label }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Warna Font -->
+        <div style="margin-bottom:20px;">
+            <label style="font-size:13px; font-weight:500; display:block; margin-bottom:10px;">Warna Font</label>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;" id="font-picker">
+                {% for color, label in font_colors %}
+                <div class="color-btn font-btn {% if theme.text_color == color %}active{% endif %}"
+                     data-color="{{ color }}" style="background:{{ color }}{% if color == '#ffffff' %}; border:1px solid #e5e7eb{% endif %};"
+                     title="{{ label }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Font Family -->
+        <div style="margin-bottom:28px;">
+            <label style="font-size:13px; font-weight:500; display:block; margin-bottom:10px;">Font</label>
+            <select id="font-family" style="padding:8px 12px; border:1px solid #e5e7eb; border-radius:8px; font-size:13px;">
+                <option value="Inter"       {% if theme.font_family == 'Inter' %}selected{% endif %}>Inter</option>
+                <option value="Georgia"     {% if theme.font_family == 'Georgia' %}selected{% endif %}>Georgia</option>
+                <option value="Courier New" {% if theme.font_family == 'Courier New' %}selected{% endif %}>Courier New</option>
+                <option value="Arial"       {% if theme.font_family == 'Arial' %}selected{% endif %}>Arial</option>
+            </select>
+        </div>
+
+        <button onclick="saveTheme()" style="width:100%; padding:12px; background:#3B5BDB; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer;">
+            Simpan Perubahan
+        </button>
+        <p id="save-msg" style="text-align:center; font-size:13px; margin-top:12px; color:#16a34a; display:none;">✅ Tersimpan!</p>
+    </div>
+</div>
+
+<style>
+    .color-btn { width:32px; height:32px; border-radius:50%; cursor:pointer; transition:transform .15s; border:2px solid transparent; }
+    .color-btn:hover { transform:scale(1.15); }
+    .color-btn.active { outline:3px solid #111; outline-offset:3px; }
+</style>
+
+<script>
+    let selectedBg   = "{{ theme.primary_color }}";
+    let selectedFont = "{{ theme.text_color }}";
+
+    document.querySelectorAll("#bg-picker .color-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            selectedBg = btn.dataset.color;
+            document.documentElement.style.setProperty("--theme-bg", selectedBg);
+            document.querySelectorAll("#bg-picker .color-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+        });
+    });
+
+    document.querySelectorAll("#font-picker .color-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            selectedFont = btn.dataset.color;
+            document.documentElement.style.setProperty("--theme-font", selectedFont);
+            document.querySelectorAll("#font-picker .color-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+        });
+    });
+
+    document.getElementById("font-family").addEventListener("change", function() {
+        document.documentElement.style.setProperty("--theme-font-family", this.value + ", Arial, sans-serif");
+    });
+
+    function getCookie(name) {
+        let val = null;
+        document.cookie.split(';').forEach(c => {
+            c = c.trim();
+            if (c.startsWith(name + '=')) val = decodeURIComponent(c.split('=')[1]);
+        });
+        return val;
+    }
+
+    async function saveTheme() {
+        const res = await fetch("{% url 'update_theme' %}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") },
+            body: JSON.stringify({ primary_color: selectedBg, text_color: selectedFont, font_family: document.getElementById("font-family").value })
+        });
+        if (res.ok) {
+            const msg = document.getElementById("save-msg");
+            msg.style.display = "block";
+            setTimeout(() => msg.style.display = "none", 3000);
+        }
+    }
+</script>
 {% endblock %}
