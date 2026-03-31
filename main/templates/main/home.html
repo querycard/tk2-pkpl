@@ -9,21 +9,26 @@
 
 {% block content %}
 
-<div class="hero-section">
-    <h1>Kelompok Aurel Basket <span class="hero-accent">— PKPL TK 2</span></h1>
-    <p>Website Biodata Kelompok dengan Google OAuth dan Role-Based Theme Customization</p>
+<div class="hero-section" style="background: {{ theme.primary_color }};">
+    <h1 style="color: {{ theme.text_color }};">
+        Kelompok Aurel Basket
+        <span class="hero-accent" style="color: {{ theme.text_color }}; opacity: 0.8;">— PKPL TK 2</span>
+    </h1>
+    <p style="color: {{ theme.text_color }}; opacity: 0.75;">
+        Website Biodata Kelompok dengan Google OAuth dan Role-Based Theme Customization
+    </p>
 </div>
 
 <div class="members-section">
-    <h2 class="section-title">Anggota Kelompok</h2>
-    <div class="section-line"></div>
+    <h2 class="section-title" style="color: {{ theme.text_color }};">Anggota Kelompok</h2>
+    <div class="section-line" style="background: {{ theme.primary_color }};"></div>
 
     <div class="members-grid">
         {% for member in members %}
             {% with idx=forloop.counter0 %}
 
                 {% if user.is_authenticated and user.email == member.email %}
-                    <div class="member-card card-active">
+                    <div class="member-card card-active" style="border-color: {{ theme.primary_color }}; box-shadow: 0 0 0 4px rgba(0,0,0,0.06);">
                 {% else %}
                     <div class="member-card">
                 {% endif %}
@@ -48,9 +53,11 @@
                         {% endif %}
                     </div>
 
-                    <div class="member-name">{{ member.full_name }}</div>
+                    <div class="member-name" style="color: {{ theme.text_color }};">{{ member.full_name }}</div>
                     <div class="member-npm">{{ member.npm }}</div>
-                    <span class="member-badge">PKPL - C</span>
+                    <span class="member-badge" style="color: {{ theme.primary_color }}; border: 1px solid {{ theme.primary_color }}33;">
+                        PKPL - C
+                    </span>
 
                 </div>
 

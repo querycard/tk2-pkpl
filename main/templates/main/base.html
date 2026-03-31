@@ -8,16 +8,41 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-    :root {
-        --theme-bg: {{ theme.primary_color }};
-        --theme-font: {{ theme.text_color }};
-        --theme-font-family: '{{ theme.font_family }}', Arial, sans-serif;
-    }
-    body { background: var(--theme-bg); color: var(--theme-font); font-family: var(--theme-font-family); }
-</style>
+        :root {
+            --theme-bg: {{ theme.primary_color|default:"#EEF2FF" }};
+            --theme-font: {{ theme.text_color|default:"#111111" }};
+            --theme-font-family: '{{ theme.font_family|default:"Inter" }}', Arial, sans-serif;
+
+            --theme-accent: {{ theme.primary_color|default:"#3B5BDB" }};
+            --surface: #ffffff;
+            --surface-muted: #f8fafc;
+            --border: #e5e7eb;
+            --text-muted: #6b7280;
+            --footer-bg: #1e1e2e;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #ffffff;
+            color: var(--theme-font);
+            font-family: var(--theme-font-family);
+        }
+
+        main {
+            min-height: calc(100vh - 64px);
+        }
+    </style>
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     {% block extra_css %}{% endblock %}

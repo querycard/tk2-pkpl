@@ -1,0 +1,235 @@
+.dashboard-page {
+    padding: 42px 24px 48px;
+    background: #ffffff;
+}
+
+.dashboard-container {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    margin-bottom: 28px;
+}
+
+.dashboard-header h1 {
+    margin: 0 0 10px;
+    font-size: 54px;
+    line-height: 1.05;
+    font-weight: 800;
+    color: #111111;
+    letter-spacing: -0.02em;
+}
+
+.dashboard-header p {
+    margin: 0;
+    font-size: 15px;
+    color: #6b7280;
+}
+
+.theme-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.theme-card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 26px 30px 22px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.theme-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7c3aed;
+    background: #f3e8ff;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.theme-card-head h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111111;
+}
+
+.theme-card-head p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #6b7280;
+}
+
+.theme-card-body {
+    padding: 28px 30px 30px;
+}
+
+.theme-group + .theme-group {
+    margin-top: 18px;
+}
+
+.theme-label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111111;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 6px;
+}
+
+.font-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.theme-color-btn {
+    position: relative;
+    height: 52px;
+    border-radius: 0;
+    border: 2px solid transparent;
+    background: var(--swatch);
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25);
+}
+
+.theme-color-btn:hover {
+    transform: translateY(-1px);
+}
+
+.theme-color-btn.active {
+    border-color: #111111;
+    box-shadow: 0 0 0 3px rgba(17,17,17,0.12);
+}
+
+.theme-color-btn.small {
+    height: 42px;
+}
+
+/* Biar warna terang tetap kelihatan */
+.theme-color-btn[data-color="#ffffff"],
+.theme-color-btn[data-color="#dfca56"] {
+    border: 2px solid #d1d5db;
+}
+
+.checkmark {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.28);
+}
+
+.theme-color-btn.active .checkmark {
+    display: flex;
+}
+
+.font-grid-select {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.font-option {
+    height: 44px;
+    border-radius: 8px;
+    border: 1.5px solid #d1d5db;
+    background: #ffffff;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, color 0.16s ease;
+}
+
+.font-option:hover {
+    border-color: #c4b5fd;
+}
+
+.font-option.active {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.18);
+    color: #6d28d9;
+}
+
+.save-btn {
+    width: 100%;
+    margin-top: 26px;
+    height: 46px;
+    border: 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #7c3aed 0%, #8b5cf6 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.16s ease, opacity 0.16s ease;
+}
+
+.save-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.96;
+}
+
+.save-msg {
+    display: none;
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: 13px;
+    color: #16a34a;
+}
+
+@media (max-width: 900px) {
+    .dashboard-header h1 {
+        font-size: 40px;
+    }
+
+    .color-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .font-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-page {
+        padding: 24px 16px 32px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 32px;
+    }
+
+    .theme-card-head,
+    .theme-card-body {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .font-grid-select {
+        grid-template-columns: 1fr;
+    }
+}
