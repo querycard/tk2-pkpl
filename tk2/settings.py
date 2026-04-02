@@ -174,6 +174,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     }
 # }
 
+#disini
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
+
 # Melewati halaman konfirmasi putih saat login
 SOCIALACCOUNT_LOGIN_ON_GET = True
 # Melewati halaman konfirmasi putih saat logout
